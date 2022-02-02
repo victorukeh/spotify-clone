@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { login, refresh, callback } = require('../controllers/auth')
+const { login, refresh } = require('../controllers/auth')
 
 router.post('/login', login)
-// .post('/refresh', refresh).get('callback',callback)
-// .get('/profile/userinfo', userinfo)
+router.post('/refresh', refresh)
 module.exports = router

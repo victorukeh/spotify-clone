@@ -4,7 +4,7 @@ const cors = require('cors')
 const cookieParser = require('cookie-parser')
 
 dotenv.config({
-    path: './config/config.env'
+  path: './config/config.env',
 })
 
 const app = express()
@@ -20,15 +20,18 @@ app.use(cors())
 // Cookie parser
 app.use(cookieParser())
 
-const auth = require('./routers/auth')
+// const auth = require('./routers/auth')
 
-app.use('/', auth)
-
-const PORT = process.env.PORT || 5000
+// app.use('/', auth)
+app.get('/', (req, res) => {    
+  res.json({message: 'Hello from express'})
+})
+require('./routers/gateway')(app)
+const PORT =  process.env.PORT || 8000
 const server = app.listen(PORT, console.log(`Server running on port ${PORT}`))
 
 //Handle Unhandled Rejections
 process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.body}`)
-    server.close(() => process.exit(1))
-  })
+  console.log(`Error: ${err}`)
+  server.close(() => process.exit(1))
+})
