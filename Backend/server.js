@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
+const lyricsFinder = require("lyrics-finder")
 
 dotenv.config({
   path: './config/config.env',
@@ -20,13 +21,15 @@ app.use(cors())
 // Cookie parser
 app.use(cookieParser())
 
-// const auth = require('./routers/auth')
+
 
 // app.use('/', auth)
-app.get('/', (req, res) => {    
-  res.json({message: 'Hello from express'})
+app.get("/lyrics", async (req, res) => {
+  const lyrics =
+    (await lyricsFinder(req.query.artist, req.query.track)) || "No Lyrics Found"
+  res.json({ lyrics })
 })
-require('./routers/gateway')(app)
+
 const PORT =  process.env.PORT || 8000
 const server = app.listen(PORT, console.log(`Server running on port ${PORT}`))
 

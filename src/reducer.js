@@ -3,9 +3,11 @@ export const initialState = {
   playlist: [],
   playing: false,
   item: null,
-  token: null,
   songs: [],
-  search: ''
+  search: '',
+  searchResults: [],
+  spotify: null,
+  choice: null,
     // 'BQAJtnYiJpl88FFcDfuz7klQqYJ7Q3pTuJuJLIv06pVP_sdRFxpLAKld2n0MjSW_JEfF-jwMTu4sX41bIGlh_4cDoZhQLb41JD4dBoAthMVlRGtHTtXaSYYmtsTYejUfTqa_q3y75lGQemh7bNPl6CUD_plM79vpgBmYg5KWgRcFGgfl',
 }
 
@@ -27,16 +29,16 @@ const reducer = (state, action) => {
         token: action.token,
       }
 
-    case 'SET_PLAYLISTS':
-      return {
-        ...state,
-        playlists: action.playlists,
-      }
-
     case 'SET_REFRESH':
       return{
         ...state,
         refresh: action.refresh
+      }
+
+    case 'SET_PLAYLISTS':
+      return {
+        ...state,
+        playlists: action.playlists,
       }
 
     case 'SET_SONGS':
@@ -51,6 +53,36 @@ const reducer = (state, action) => {
         search: action.search
       }
 
+    case 'SET_SEARCHRESULTS':
+      return{
+        ...state, 
+        searchResults: action.searchResults
+      }
+
+    case "SET_SPOTIFY":
+      return {
+        ...state,
+        spotify: action.spotify,
+      };
+
+    case 'SET_CHOOSETRACK':
+      return{
+        ...state, 
+        chooseTrack: action.chooseTrack
+      }
+
+    case 'SET_PLAYLIST_TO_PLAY':
+       return{
+         ...state,
+         choice: action.choice
+       }     
+
+    case 'SET_PLAYINGTRACK':
+      return{
+        ...state,
+        playingTrack: action.playingTrack
+      }
+    
     default:
       return state
   }

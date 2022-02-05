@@ -1,57 +1,97 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Form } from 'react-bootstrap'
 import { useDataLayerValue } from './DataLayer'
-import Player from './Player'
 import SearchBar from 'material-ui-search-bar'
 import TrackSearchResult from './TrackSearchResult'
 import './Dashboard.css'
-import SpotifyWebApi from 'spotify-web-api-node'
-import useAuth from './useAuth'
 
-const Dashboard = ({ code }) => {
-  const [{ findSearch, songs }, dispatch] = useDataLayerValue()
-  const [search, setSearch] = useState('')
-  console.log('place for songs', songs[0])
+const Dashboard = ({ chooseTrack }) => {
+  const [{ token, search, spotify }, dispatch] = useDataLayerValue()
+  const [searchResults, setSearchResults] = useState([])
+
   useEffect(() => {
-    if (search) {
-      dispatch({
-        type: 'SET_SEARCH',
-        search: search,
-      })
-    }
-  }, [search])
+    if (!search) return setSearchResults([])
+    if (!token) return
+
+    let cancel = false
+    ;(async () => {
+      async function fetchData() {
+        if (token != null) {
+          console.log('search =',search)
+          const {tracks} = await spotify.searchTracks(search)   
+          if (cancel) return
+          if(tracks){
+            try{
+              setSearchResults(
+                tracks.items.map((track) => {
+                  const smallestAlbumImage = track.album.images.reduce(
+                    (smallest, image) => {
+                      if (image.height < smallest.height) return image
+                      return smallest
+                    },
+                    track.album.images[0]
+                  )
+  
+                  return {
+                    artist: track.artists[0].name,
+                    title: track.name,
+                    uri: track.uri,
+                    albumUrl: smallestAlbumImage.url,
+                  }
+                })
+              )
+            }
+            catch(err){
+              console.log(err)
+              // res.status(400).json({})
+            }
+           
+          }
+            
+          
+        }
+      }
+      fetchData()
+    })()
+
+    return () => (cancel = true)
+  }, [search, token])
+
   return (
-    <Container className='dashboard d-flex flex-column py-2'>
-      <Form.Control
+    <div className='dashboard' style={{ overflowY: 'scroll' }}>
+      <br></br>
+      <SearchBar
+        style={{
+          margin: 'auto',
+          maxWidth: 800,
+          minWidth: 80,
+        }}
         type='search'
         value={search}
         placeholder='Search Songs/Artists'
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(newValue) =>
+          dispatch({
+            type: 'SET_SEARCH',
+            search: newValue,
+          })
+        }
       />
-      <h1>Dashboard</h1>
-
-      <div className='flex-grow-1 my-2' style={{ overflowY: 'auto' }}>
-        {songs.map((track) => {
-          ;<TrackSearchResult track={track} key={track.uri} />
-        })}
-        Songs
+      <br />
+      <div className='flex-grow-1 my-2' style={{ height: '70vh' ,overflowY: 'scroll' }}>
+        {searchResults.map((track) => (
+          <TrackSearchResult
+            track={track}
+            key={track.uri}
+            chooseTrack={chooseTrack}
+          />
+        ))}
+        {/* {searchResults.length === 0 && (
+          <div className="text-center" style={{ whiteSpace: "pre" }}>
+            {lyrics}
+          </div>
+        )} */}
       </div>
-    </Container>
+    </div>
   )
 }
 
 export default Dashboard
-
-{
-  /* <SearchBar
-        style={{
-          margin: '5% auto',
-          maxWidth: 800,
-        }}
-        placeholder='Search Songs/Artists'
-        value={search}
-        type='search'
-        // onChange={(e) => setSearch(e.target.value)}
-        onChange={(e) => setSearch(e.target.value)}
-      /> */
-}

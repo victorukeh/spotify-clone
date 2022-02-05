@@ -9,6 +9,12 @@ import './Sidebar.css'
 
 const Sidebar = () => {
   const [{ playlists }, dispatch] = useDataLayerValue()
+  function choosePlaylist(playlist){
+    dispatch({
+      type: 'SET_PLAYLIST_TO_PLAY',
+      choice: playlist
+    })
+  }
   return (
     <div className='sidebar'>
       <img
@@ -18,16 +24,20 @@ const Sidebar = () => {
       />
       <SidebarOptions Icon={HomeIcon} title='Home' />
       {/* <Link to="/search"> */}
-        <SidebarOptions Icon={SearchIcon} title='Search'/>
-        {/* </Link> */}
+      <SidebarOptions Icon={SearchIcon} title='Search' />
+      {/* </Link> */}
       <SidebarOptions Icon={LibraryMusicIcon} title='Your Library' />
       <br />
       <strong className='sidebar__title'>PLAYLISTS</strong>
       <hr />
 
-      {playlists > 0   ? (playlists?.items?.map((playlist) => (
-        <SidebarOptions title={playlist.name} />
-      ))) : (<SidebarOptions  title='No Playlists yet' /> )}
+      {playlists?.items !== 0 ? (
+        playlists?.items?.map((playlist) => {
+          return <SidebarOptions title={playlist.name} playlist={playlist} key={playlist.id} choosePlaylist={choosePlaylist}/>
+        })
+      ) : (
+        <SidebarOptions title='No Playlists yet' />
+      )}  
     </div>
   )
 }
