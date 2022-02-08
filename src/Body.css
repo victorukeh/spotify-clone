@@ -3,6 +3,8 @@
     color: rgb(197, 189, 189);
     background: linear-gradient(rgb(91, 87, 115), rgba(0, 0, 0, 1 ));
     background-color: rgb(15, 15, 15);
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
 }
   
    .body::-webkit-scrollbar {
@@ -48,7 +50,7 @@
   
   .body__songs {
     z-index: 1;
-    margin: 20px -30px;
+    margin: 20px;
   }
   
   .body__info > img {
@@ -69,3 +71,12 @@
   .body__infoText > p {
     font-size: 14px;
   } 
+
+  .music{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .music::-webkit-scrollbar {
+    display: none;
+  }

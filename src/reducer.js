@@ -8,7 +8,6 @@ export const initialState = {
   searchResults: [],
   spotify: null,
   choice: null,
-    // 'BQAJtnYiJpl88FFcDfuz7klQqYJ7Q3pTuJuJLIv06pVP_sdRFxpLAKld2n0MjSW_JEfF-jwMTu4sX41bIGlh_4cDoZhQLb41JD4dBoAthMVlRGtHTtXaSYYmtsTYejUfTqa_q3y75lGQemh7bNPl6CUD_plM79vpgBmYg5KWgRcFGgfl',
 }
 
 // The reducer's primary job is to listen to actions
@@ -83,6 +82,23 @@ const reducer = (state, action) => {
         playingTrack: action.playingTrack
       }
     
+    case 'SET_CATEGORIES':
+      return{
+        ...state,
+        category: action.category
+      }
+
+    case 'SET_PLAYLISTS_PER_CATEGORY':
+      return{
+        ...state,
+        categoryPlaylist: action.categoryPlaylist
+      }
+    
+    case 'SET_CATEGORYID':
+      return{
+        ...state,
+        id: action.id
+      }
     default:
       return state
   }

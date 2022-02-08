@@ -5,16 +5,11 @@ import HomeIcon from '@material-ui/icons/Home'
 import SearchIcon from '@material-ui/icons/Search'
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic'
 import { useDataLayerValue } from './DataLayer'
+import {Link} from 'react-router-dom'
 import './Sidebar.css'
 
 const Sidebar = () => {
   const [{ playlists }, dispatch] = useDataLayerValue()
-  function choosePlaylist(playlist){
-    dispatch({
-      type: 'SET_PLAYLIST_TO_PLAY',
-      choice: playlist
-    })
-  }
   return (
     <div className='sidebar'>
       <img
@@ -22,18 +17,21 @@ const Sidebar = () => {
         alt=''
         className='sidebar__logo'
       />
-      <SidebarOptions Icon={HomeIcon} title='Home' />
+     <Link to ='/' style={{textDecoration:'none'}}><SidebarOptions Icon={HomeIcon} title='Home' /></Link>
       {/* <Link to="/search"> */}
-      <SidebarOptions Icon={SearchIcon} title='Search' />
+      <Link to = '/search' style={{textDecoration:'none'}}><SidebarOptions Icon={SearchIcon} title='Search' /></Link>
       {/* </Link> */}
-      <SidebarOptions Icon={LibraryMusicIcon} title='Your Library' />
+      <Link to = '/library' style={{textDecoration:'none'}}><SidebarOptions Icon={LibraryMusicIcon} title='Your Library' /></Link>
       <br />
       <strong className='sidebar__title'>PLAYLISTS</strong>
       <hr />
 
       {playlists?.items !== 0 ? (
         playlists?.items?.map((playlist) => {
-          return <SidebarOptions title={playlist.name} playlist={playlist} key={playlist.id} choosePlaylist={choosePlaylist}/>
+          return <Link to='/playlist' key={playlist.id} style={{textDecoration:'none'}}><SidebarOptions title={playlist.name} playlist={playlist} key={playlist.id} 
+          // choosePlaylist={choosePlaylist}
+          />
+          </Link>
         })
       ) : (
         <SidebarOptions title='No Playlists yet' />

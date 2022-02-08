@@ -1,7 +1,15 @@
 import React from 'react'
+import { useDataLayerValue } from './DataLayer'
 import './sidebarOption.css'
 
-function SidebarOption({ title, Icon, playlist, choosePlaylist }) {
+function SidebarOption({ title, Icon, playlist }) {
+  const [{ playlists }, dispatch] = useDataLayerValue()
+  function choosePlaylist(playlist){
+    dispatch({
+      type: 'SET_PLAYLIST_TO_PLAY',
+      choice: playlist
+    })
+  }
   function handleSelect() {
     choosePlaylist(playlist)
   }

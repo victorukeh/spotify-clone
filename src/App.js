@@ -12,18 +12,18 @@ import './App.css'
 const spotifyApi = new SpotifyWebApi()
 
 function App() {
-  const [{ token, refresh }, dispatch] = useDataLayerValue()
+  const [{ token, id, refresh }, dispatch] = useDataLayerValue()
   // const [playingTrack, setPlayingTrack] = useState()
   const [lyrics, setLyrics] = useState('')
 
   function chooseTrack(track) {
     dispatch({
       type: 'SET_PLAYINGTRACK',
-      playingTrack: track
+      playingTrack: track,
     })
     dispatch({
       type: 'SET_SEARCH',
-      search: ''
+      search: '',
     })
     // setLyrics("")
   }
@@ -89,24 +89,28 @@ function App() {
             playlists,
           })
         })
+
+        spotifyApi.getCategories().then((response) => {
+          dispatch({
+            type: 'SET_CATEGORIES',
+            category: response
+          })
+        })
+
+       
+
+        
       }
     }
     fetchData()
 
-    // spotifyApi.getPlaylist("37i9dQZEVXcJZyENOWUFo7").then((response) =>
-    //   dispatch({
-    //     type: "SET_DISCOVER_WEEKLY",
-    //     discover_weekly: response,
-    //   })
-    // );
   }, [token])
 
- 
   return (
     // <Router>
     <div className='app'>
       {!token && <Login />}
-      {token && <Player  chooseTrack={ chooseTrack}/>}
+      {token && <Player chooseTrack={chooseTrack} />}
     </div>
     // </Router>
   )

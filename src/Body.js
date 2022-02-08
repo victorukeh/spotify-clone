@@ -9,17 +9,16 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 function Body({ chooseTrack }) {
   const [music, setMusic] = useState(null)
   const [color, setColor] = useState('')
-  const [{ spotify, choice }, dispatch] = useDataLayerValue()
+  const [{ spotify, choice }] = useDataLayerValue()
 
   const changeColor = (e) => {
-    if (color.bgColor === '#90EE90') {
+    if (color === '') {
       setColor({
-        bgColor: ''
+        bgColor: '#90EE90'
       })
-    } 
-    if (color.bgColor === '') {
+    } else{
       setColor({
-        bgColor: '#90EE90',
+        bgColor: '',
       })
     }
   }
@@ -28,15 +27,9 @@ function Body({ chooseTrack }) {
     if (choice) {
       const search = choice?.id
       spotify.getPlaylist(search).then((response) =>
-        // dispatch({
-        //   type: "SET_DISCOVER_WEEKLY",
-        //   discover_weekly: response,
-        // })
-        // console.log(response)
-        setMusic(response)
+      setMusic(response)
       )
     }
-    console.log('This is the music = ', music)
   }, [choice])
 
   return (
@@ -71,9 +64,8 @@ function Body({ chooseTrack }) {
       </div>
 
       <div className='body__songs'>
-        <div style={{ height: '40vh', overflowY: 'scroll' }}>
+        <div className='music' style={{ height: '40vh', overflowY: 'scroll' }}>
           {music?.tracks.items.map((response) => (
-            // console.log('This is the result = ',response?.track)
             <SongRow
               track={response?.track}
               key={response.uri}

@@ -57,7 +57,7 @@ const Dashboard = ({ chooseTrack }) => {
   }, [search, token])
 
   return (
-    <div className='dashboard' style={{ overflowY: 'scroll' }}>
+    <div className='dashboard'>
       <br></br>
       <SearchBar
         style={{
@@ -76,7 +76,7 @@ const Dashboard = ({ chooseTrack }) => {
         }
       />
       <br />
-      <div className='flex-grow-1 my-2' style={{ height: '70vh' ,overflowY: 'scroll' }}>
+      <div className='search__results flex-grow-1 my-2' style={{ height: '70vh' ,overflowY: 'scroll' }}>
         {searchResults.map((track) => (
           <TrackSearchResult
             track={track}

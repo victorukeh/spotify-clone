@@ -6,9 +6,11 @@ import ShowPlaylist from './ShowPlaylist'
 import Dashboard from './Dashboard'
 import Body from './Body'
 import Footer from './Footer'
+import Home from './Home'
+import { Routes, Route } from 'react-router-dom'
 import './Player.css'
 
-const Player = ({ chooseTrack}) => {
+const Player = ({ chooseTrack }) => {
   const [{ token, choice }, dispatch] = useDataLayerValue()
 
   return (
@@ -18,9 +20,18 @@ const Player = ({ chooseTrack}) => {
         <Sidebar />
         {/* Body and Footer*/}
         <div className='player__others'>
-          {/* <Dashboard chooseTrack={chooseTrack} /> */}
-          <Body chooseTrack={chooseTrack}/>
-           {/* <ShowPlaylist/> */}
+          <Routes>
+            <Route index element={<Home />} />
+            <Route
+              path='/search'
+              element={<Dashboard chooseTrack={chooseTrack} />}
+            />
+            <Route
+              path='/playlist'
+              element={<Body chooseTrack={chooseTrack} />}
+            />
+          </Routes>
+          {/* <ShowPlaylist/> */}
           <Footer />
         </div>
       </div>

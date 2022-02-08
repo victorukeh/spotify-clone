@@ -1,10 +1,19 @@
-.dashboard{
-    height: 89vh;
-    color: rgb(197, 189, 189);
-    background: linear-gradient(rgb(91, 87, 115), rgba(0, 0, 0, 1 ));
+.dashboard {
+  height: 89vh;
+  color: rgb(197, 189, 189);
+  background: linear-gradient(rgb(91, 87, 115), rgba(0, 0, 0, 1));
 }
 
-.search__bar{
-    width: '70%';
-    margin-left: '10%';
+.search__bar {
+  width: '70%';
+  margin-left: '10%';
+}
+
+.search__results {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.search__results::-webkit-scrollbar {
+  display: none;
 }
