@@ -1,0 +1,23 @@
+.home{
+    height: 89vh;
+    color: rgb(197, 189, 189);
+    background: linear-gradient(rgb(91, 87, 115), rgba(0, 0, 0, 1 ));
+    padding-left: 30px; 
+}
+
+.home__title{
+    font-size:24px;
+    line-height:28px;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    color:white;
+}
+
+.home__content{
+    padding-top: 3%;
+}
+.home__playlists {
+    display: flex;
+    align-items: flex-end;
+    padding: 10px;
+}

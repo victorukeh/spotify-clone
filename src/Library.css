@@ -1,0 +1,10 @@
+.library{
+    height: 88.99vh;
+    color: rgb(197, 189, 189);
+    background: linear-gradient(rgb(91, 87, 115), rgba(0, 0, 0, 1 ));
+    padding-left: 30px;
+}
+
+.library__content{
+    padding-top: 3%;
+}
