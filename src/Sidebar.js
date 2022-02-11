@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 import './Sidebar.css'
 
 const Sidebar = () => {
-  const [{ playlists }, dispatch] = useDataLayerValue()
+  const [{ playlists }] = useDataLayerValue()
   return (
     <div className='sidebar'>
       <img

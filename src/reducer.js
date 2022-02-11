@@ -99,6 +99,12 @@ const reducer = (state, action) => {
         ...state,
         id: action.id
       }
+
+    case 'SET_LYRICS':
+      return{
+        ...state,
+        lyrics: action.lyrics
+      }
     default:
       return state
   }

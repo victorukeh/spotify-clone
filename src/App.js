@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import SpotifyWebApi from 'spotify-web-api-js'
-// import { BrowserRouter as Router, Route } from 'react-router-dom'
+import axios from 'axios'
 import Login from './Login'
 import Player from './Player'
 import { useDataLayerValue } from './DataLayer'
 import { getTokenFromResponse } from './spotify'
-
-import axios from 'axios'
 import './App.css'
 
 const spotifyApi = new SpotifyWebApi()
 
 function App() {
-  const [{ token, id, refresh }, dispatch] = useDataLayerValue()
-  // const [playingTrack, setPlayingTrack] = useState()
-  const [lyrics, setLyrics] = useState('')
+  //Fetching states from the reducr using Context API
+  const [{ token, playingTrack }, dispatch] = useDataLayerValue()
 
   function chooseTrack(track) {
     dispatch({
@@ -25,23 +22,30 @@ function App() {
       type: 'SET_SEARCH',
       search: '',
     })
-    // setLyrics("")
+    dispatch({
+      type: 'SET_LYRICS',
+      lyrics: '',
+    }) 
   }
 
-  // useEffect(() => {
-  //   if (!playingTrack) return
-
-  //   axios
-  //     .get('http://localhost:8000/lyrics', {
-  //       params: {
-  //         track: playingTrack.title,
-  //         artist: playingTrack.artist,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setLyrics(res.data.lyrics)
-  //     })
-  // }, [playingTrack])
+  // Fetch lyrics from the Baackend
+  useEffect(() => {
+    if (!playingTrack) return
+    axios
+      .get('http://localhost:8000/lyrics', {
+        params: {
+          track: playingTrack.title,
+          artist: playingTrack.artist,
+        },
+      })
+      .then((res) => {
+        console.log(res.data)
+        dispatch({
+          type: 'SET_LYRICS',
+          lyrics: res.data.lyrics,
+        }) 
+      })
+  }, [playingTrack])
 
   useEffect(() => {
     // Set token
@@ -89,30 +93,27 @@ function App() {
             playlists,
           })
         })
-
-        spotifyApi.getCategories().then((response) => {
+        const options = {
+          "country": 'NG',
+          "limit" : 1,
+        }
+        spotifyApi.getCategories(options).then((response) => {
           dispatch({
             type: 'SET_CATEGORIES',
-            category: response
+            category: response,
           })
         })
-
-       
-
-        
       }
     }
     fetchData()
-
   }, [token])
 
   return (
-    // <Router>
+    // Entry Point
     <div className='app'>
       {!token && <Login />}
       {token && <Player chooseTrack={chooseTrack} />}
     </div>
-    // </Router>
   )
 }
 

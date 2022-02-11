@@ -1,18 +1,15 @@
 import React from 'react'
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { useDataLayerValue } from './DataLayer'
 import Sidebar from './Sidebar'
-import ShowPlaylist from './ShowPlaylist'
 import Dashboard from './Dashboard'
 import Body from './Body'
 import Footer from './Footer'
+import Library from './Library'
 import Home from './Home'
 import { Routes, Route } from 'react-router-dom'
 import './Player.css'
 
+// Main Spotify Player Integration of Components
 const Player = ({ chooseTrack }) => {
-  const [{ token, choice }, dispatch] = useDataLayerValue()
-
   return (
     <div className='player'>
       <div className='player__body'>
@@ -29,6 +26,10 @@ const Player = ({ chooseTrack }) => {
             <Route
               path='/playlist'
               element={<Body chooseTrack={chooseTrack} />}
+            />
+            <Route
+              path='/library'
+              element={<Library/>}
             />
           </Routes>
           {/* <ShowPlaylist/> */}

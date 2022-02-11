@@ -3,7 +3,7 @@ import { useDataLayerValue } from './DataLayer'
 import './sidebarOption.css'
 
 function SidebarOption({ title, Icon, playlist }) {
-  const [{ playlists }, dispatch] = useDataLayerValue()
+  const [{}, dispatch] = useDataLayerValue()
   function choosePlaylist(playlist){
     dispatch({
       type: 'SET_PLAYLIST_TO_PLAY',

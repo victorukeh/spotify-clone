@@ -4,10 +4,9 @@ import { useDataLayerValue } from './DataLayer'
 import './Footer.css'
 
 const Footer = () => {
-  const [{ token, playingTrack }, dispatch] = useDataLayerValue()
+  const [{ token, playingTrack }] = useDataLayerValue()
   const [play, setPlay] = useState(false)
   const trackUri = playingTrack?.uri
-  console.log(trackUri)
  
   useEffect(() => setPlay(true), [trackUri])
   if (!token) return null
