@@ -21,9 +21,6 @@ app.use(cors())
 // Cookie parser
 app.use(cookieParser())
 
-
-
-// app.use('/', auth)
 app.get("/lyrics", async (req, res) => {
   const lyrics =
     (await lyricsFinder(req.query.artist, req.query.track)) || "No Lyrics Found"

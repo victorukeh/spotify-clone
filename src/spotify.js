@@ -1,5 +1,5 @@
 export const authEndpoint = 'https://accounts.spotify.com/authorize'
-const redirectUri = 'http://localhost:3000/'
+const redirectUri = 'https://spotify-clone-ukeh.herokuapp.com/'
 
 const clientId = '13f6b6132cde494f9d7c84b475b1f049'
 // '13f6b6132cde494f9d7c84b475b1f049'
