@@ -71,6 +71,7 @@ const Dashboard = ({ chooseTrack }) => {
           margin: 'auto',
           maxWidth: 800,
           minWidth: 80,
+          color: "red"
         }}
         type='search'
         value={search}

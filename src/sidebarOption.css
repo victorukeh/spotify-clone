@@ -1,12 +1,17 @@
 .sidebarOption{
     display: flex;
     align-items: center;
-    color: grey;
+    color: rgb(187, 183, 183);
     height: 40px;
     cursor: pointer;
     transition: 200ms color ease-in;
 }
 
+.sidebarOption:hover{
+    background-color: black;
+    border-radius: 5px;
+    color: #ffffff;
+}
 .sidebar > hr{
     border: 1px solid #282828;
     width: 90%;

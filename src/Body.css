@@ -50,7 +50,7 @@
   
   .body__songs {
     z-index: 1;
-    margin: 20px;
+    margin-top: 20px;
   }
   
   .body__info > img {

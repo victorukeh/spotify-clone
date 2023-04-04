@@ -5,9 +5,9 @@
   background-color: black;
 }
 
-.login > img {
+/* .login > img {
   width: 100%;
-}
+} */
 
 .login > a {
   padding: 20px;
@@ -16,4 +16,8 @@
   font-weight: 800;
   color: white;
   text-decoration: none;
+}
+
+.login__image{
+  height: clamp(200px, 60%, 80%)
 }

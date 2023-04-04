@@ -85,7 +85,7 @@ const reducer = (state, action) => {
     case 'SET_CATEGORIES':
       return{
         ...state,
-        category: action.category
+        categories: action.categories
       }
 
     case 'SET_PLAYLISTS_PER_CATEGORY':

@@ -1,5 +1,5 @@
 .songRow {
-    margin-left: 20px;
+    /* margin-left: 20px; */
     padding: 20px;
     display: flex;
     align-items: center;
@@ -30,4 +30,5 @@
   .songRow__album {
     height: 40px;
     width: 40px;
+    padding-left: 15px;
   }

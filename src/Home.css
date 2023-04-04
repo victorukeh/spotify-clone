@@ -1,5 +1,5 @@
 .home{
-    height: 89vh;
+    height: 90vh;
     color: rgb(197, 189, 189);
     background: linear-gradient(rgb(91, 87, 115), rgba(0, 0, 0, 1 ));
     padding-left: 30px; 
@@ -15,6 +15,13 @@
 
 .home__content{
     padding-top: 3%;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 72vh;
+    overflow-y: scroll;
 }
 .home__playlists {
     display: flex;

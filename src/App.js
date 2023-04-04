@@ -32,14 +32,13 @@ function App() {
   useEffect(() => {
     if (!playingTrack) return
     axios
-      .get('http://localhost:8000/lyrics', {
+      .get('http://localhost:8000/spotify/lyrics', {
         params: {
           track: playingTrack.title,
           artist: playingTrack.artist,
         },
       })
       .then((res) => {
-        console.log(res.data)
         dispatch({
           type: 'SET_LYRICS',
           lyrics: res.data.lyrics,
@@ -63,9 +62,24 @@ function App() {
           refresh: _refresh,
         })
       }
+      
     }
   }, [])
 
+  const fetchCategories = async(spotifyApi) => {
+    const options = {
+      "country": 'NG',
+      "limit" : 10,
+      "offset": 5
+    }
+    const response = await spotifyApi.getCategories(options)
+    console.log(response)
+    await dispatch({
+      type: 'SET_CATEGORIES',
+      categories: response.categories.items,
+    })
+    console.log("Here: ", response.categories.items)
+  }
   useEffect(() => {
     async function fetchData() {
       if (token != null) {
@@ -93,16 +107,8 @@ function App() {
             playlists,
           })
         })
-        const options = {
-          "country": 'NG',
-          "limit" : 1,
-        }
-        spotifyApi.getCategories(options).then((response) => {
-          dispatch({
-            type: 'SET_CATEGORIES',
-            category: response,
-          })
-        })
+        
+        fetchCategories(spotifyApi)
       }
     }
     fetchData()

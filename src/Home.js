@@ -1,37 +1,27 @@
-import React from 'react'
-// import { useDataLayerValue } from './DataLayer'
-// import CategoryPlaylists from './CategoryPlaylists'
-import './Home.css'
+import React, { useEffect } from "react";
+import Category from "./components/Category";
+import { useDataLayerValue } from "./DataLayer";
+import "./Home.css";
 const Home = () => {
-  //   const [{ category, spotify }, dispatch] = useDataLayerValue()
-  //   const [categoryID, setCategoryID] = useState()
-  //   // const [categoryPlaylist, setCategoryPlaylist] = useState()
-
-  //   // useEffect(() => {
-
-  //   // }, [categories])
+  const [{ categories }, dispatch] = useDataLayerValue();
+  // useEffect(() => {
+  //   onClick()
+  // }, [])
+  if (categories) console.log("Category: ", categories[0]);
 
   return (
-    <div className='home'>
-      <div className='home__content'>
-        <h1 style={{ fontSize: '30px' }}>Coming Soon...</h1>
+    <div className="home">
+      <h1 style={{ fontSize: "25px", paddingTop: "3%", paddingBottom: "2%" }}>Categories</h1>
+      <div className="home__content">
+        {categories && (
+          categories.map((category) => <Category
+            text={category.name}
+            image={category.icons[0].url}
+          />
+        ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
-// {
-//   /* {<p key={category.id}> {response.playlists?.items} </p> } */
-// }
-// {
-//   /* <p key={playlist.id}> {playlist.name}</p> */
-// }
-//       {category?.categories.items.map((result) => (
-//         <div key={result.id} className='home__content'>
-//           <h1 className='home__title'>{result.name}</h1>
-//           <div className='home__playlists' style={{display: 'flex', justifyContent: 'space-around'}}>
-//           <CategoryPlaylists key={result.id} id={result.id}/>
-//           </div>
-//         </div >
-// ))}
+export default Home;
